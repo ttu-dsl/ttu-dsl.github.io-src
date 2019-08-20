@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<section id="content">
+
+	{% if NOTIFY %}
+		<div class='notify'>
+			<p>NOTICE - {{ NOTIFY }}</p>
+		</div>
+	{% endif %}
+
+<h1>Welcome!</h1>
+<p>Welcome to the Data Science League website! Find more information about us on the <a href='about.html'>about page</a>, find our upcoming events on the <a href='schedule.html'>schedule page</a>, and to peruse data science and machine learning related things of interest, check the <a href='resources.html'>resources page</a>.</p>
+
+</br>
+
+{% block content_title %}
+<h2>All articles</h2>
+{% endblock %}
+
+<ol id="post-list">
+{% for article in articles_page.object_list %}
+	<li><article class="hentry">
+			<header> <h3 class="entry-title"><a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark" title="Permalink to {{ article.title|striptags }}">{{ article.title }}</a> - <span class='faded-date'><time class="published" datetime="{{ article.date.isoformat() }}"> ({{ article.locale_date }}) </time></span></h3> </header>
+	</article></li>
+{% endfor %}
+</ol><!-- /#posts-list -->
+{% if articles_page.has_other_pages() %}
+{% include 'pagination.html' %}
+{% endif %}
+</section><!-- /#content -->
+{% endblock content %}

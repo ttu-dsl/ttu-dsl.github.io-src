@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="{% block html_lang %}{{ DEFAULT_LANG }}{% endblock html_lang %}">
+	<head>
+		{% block head %}
+		<title>{% block title %}{{ SITENAME }}{% endblock title %}</title>
+		<link href="{{ SITEURL }}/theme/css/style.css" type="text/css" rel='stylesheet' />
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet"> 
+		<meta charset="utf-8" />
+		{% if FEED_ALL_ATOM %}
+		<link href="{{ FEED_DOMAIN }}/{% if FEED_ALL_ATOM_URL %}{{ FEED_ALL_ATOM_URL }}{% else %}{{ FEED_ALL_ATOM }}{% endif %}" type="application/atom+xml" rel="alternate" title="{{ SITENAME }} Full Atom Feed" />
+		{% endif %}
+		{% if FEED_ALL_RSS %}
+		<link href="{{ FEED_DOMAIN }}/{% if FEED_ALL_RSS_URL %}{{ FEED_ALL_RSS_URL }}{% else %}{{ FEED_ALL_RSS }}{% endif %}" type="application/rss+xml" rel="alternate" title="{{ SITENAME }} Full RSS Feed" />
+		{% endif %}
+		{% if FEED_ATOM %}
+		<link href="{{ FEED_DOMAIN }}/{%if FEED_ATOM_URL %}{{ FEED_ATOM_URL }}{% else %}{{ FEED_ATOM }}{% endif %}" type="application/atom+xml" rel="alternate" title="{{ SITENAME }} Atom Feed" />
+		{% endif %}
+		{% if FEED_RSS %}
+		<link href="{{ FEED_DOMAIN }}/{% if FEED_RSS_URL %}{{ FEED_RSS_URL }}{% else %}{{ FEED_RSS }}{% endif %}" type="application/rss+xml" rel="alternate" title="{{ SITENAME }} RSS Feed" />
+		{% endif %}
+		{% if CATEGORY_FEED_ATOM and category %}
+		<link href="{{ FEED_DOMAIN }}/{% if CATEGORY_FEED_ATOM_URL %}{{ CATEGORY_FEED_ATOM_URL|format(category.slug) }}{% else %}{{ CATEGORY_FEED_ATOM|format(category.slug) }}{% endif %}" type="application/atom+xml" rel="alternate" title="{{ SITENAME }} Categories Atom Feed" />
+		{% endif %}
+		{% if CATEGORY_FEED_RSS and category %}
+		<link href="{{ FEED_DOMAIN }}/{% if CATEGORY_FEED_RSS_URL %}{{ CATEGORY_FEED_RSS_URL|format(category.slug) }}{% else %}{{ CATEGORY_FEED_RSS|format(category.slug) }}{% endif %}" type="application/rss+xml" rel="alternate" title="{{ SITENAME }} Categories RSS Feed" />
+		{% endif %}
+		{% if TAG_FEED_ATOM and tag %}
+		<link href="{{ FEED_DOMAIN }}/{% if TAG_FEED_ATOM_URL %}{{ TAG_FEED_ATOM_URL|format(tag.slug) }}{% else %}{{ TAG_FEED_ATOM|format(tag.slug) }}{% endif %}" type="application/atom+xml" rel="alternate" title="{{ SITENAME }} Tags Atom Feed" />
+		{% endif %}
+		{% if TAG_FEED_RSS and tag %}
+		<link href="{{ FEED_DOMAIN }}/{% if TAG_FEED_RSS_URL %}{{ TAG_FEED_RSS_URL|format(tag.slug) }}{% else %}{{ TAG_FEED_RSS|format(tag.slug) }}{% endif %}" type="application/rss+xml" rel="alternate" title="{{ SITENAME }} Tags RSS Feed" />
+		{% endif %}
+		{% endblock head %}
+	</head>
+
+	<body id="index" class="home">
+		<header id="banner" class="body">
+			<div class='center'>
+				<div class='column-align'>
+					<h1>Tennessee Tech</h1>
+				</div>
+				<div class='column-align'>
+					<a href='{{ SITEURL }}/index.html'><img src='{{ SITEURL }}/theme/images/DSLHeader_404x200.png' id='logo' /></a>
+				</div>
+				<div class='column-align'>
+					<h1>Data Science League</h1>
+				</div>
+			</div>
+		</header><!-- /#banner -->
+		
+		
+		<div id='container'>
+			{% block content %}
+			{% endblock %}
+			
+			<nav id="menu">
+				<ul>
+					{% for title, link in MENUITEMS %}
+						<li><a href="{{ link }}">{{ title }}</a></li>
+					{% endfor %}
+					{% if DISPLAY_PAGES_ON_MENU %}
+						{% for p in pages %}
+							<li{% if p == page %} class="active"{% endif %}><a href="{{ SITEURL }}/{{ p.url }}">{{ p.title }}</a></li>
+						{% endfor %}
+					{% endif %}
+				</ul>
+				<hr/>
+				<ul>
+					{% if DISPLAY_CATEGORIES_ON_MENU %}
+						{% for cat, null in categories %}
+							<li{% if cat == category %} class="active"{% endif %}><a href="{{ SITEURL }}/{{ cat.url }}">{{ cat }}</a></li>
+						{% endfor %}
+					{% endif %}
+				</ul>
+				<hr/>
+				<ul>
+					{% if LINKS %}
+						{% for name, link in LINKS %}
+							<li><a href='{{ link }}' target="_blank">{{ name }}</a></li>
+						{% endfor %}
+					{% endif %}
+				</ul>
+			</nav><!-- /#menu -->
+		</div>
+			
+		<footer id="footer" class="body">
+			<div style="text-align: center; padding: 5px;">
+				<p>Questions, comments, or concerns?</p>
+				<p>Club president: Nathan Martindale - <a href='mailto:namartinda42@students.tntech.edu' style='color: #FFF'>namartinda42@students.tntech.edu</a></p>
+			</div>
+		</footer><!-- /#contentinfo -->
+	</body>
+</html>
