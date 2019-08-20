@@ -1,3 +1,6 @@
 [submodule "output"]
 	path = output
 	url = git@github.com:ttu-dsl/ttu-dsl.github.io.git
+[submodule "publish"]
+	path = publish
+	url = git@github.com:ttu-dsl/ttu-dsl.github.io.git
